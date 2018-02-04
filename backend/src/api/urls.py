@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 from order.views import CheckoutViewset, GiftsViewSet, OrdersViewSet
 from food.views import FoodCategoriesViewSet, FoodItemsViewSet
 
+app_name = 'api'
 router = DefaultRouter()
 router.register(r'checkout', CheckoutViewset, base_name='checkout')
 router.register(r'orders', OrdersViewSet, base_name='order')
