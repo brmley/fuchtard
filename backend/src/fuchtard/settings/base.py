@@ -25,7 +25,6 @@ HASHID_FIELD_SALT = env('HASHID_FIELD_SALT', default='6^y3*fv!fq4z@n2-i!hy-hgi0x
 
 HASHID_FIELD_ALLOW_INT = False
 
-
 DEBUG = False
 
 INTERNAL_IPS = [
@@ -38,7 +37,6 @@ ALLOWED_HOSTS = [
     'www.maxisushi.kz',
     'mechanar.maxisushi.kz',
 ]
-
 
 # Application definition
 
@@ -69,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -110,7 +108,6 @@ DATABASES = {
     }
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -132,7 +129,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, '..', '..', 'static_content', 'static', )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', '..', 'static_content', 'media', )
-
 
 ADMINS = [
     ('robox', 'roboxv+maxi@gmail.com')
