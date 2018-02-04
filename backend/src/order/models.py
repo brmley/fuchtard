@@ -1,7 +1,7 @@
 from urllib.parse import urljoin
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.postgres.fields import JSONField
@@ -39,8 +39,8 @@ class CartItem(models.Model):
         ordering = ('position', )
 
     position = models.PositiveIntegerField(default=0, editable=False, db_index=True)
-    cart = models.ForeignKey(Cart)
-    product = models.ForeignKey(FoodItem)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     history_price = models.IntegerField(null=True)
 
@@ -85,7 +85,7 @@ class Order(models.Model):
     cart_meta = JSONField(default=dict())
     deliver_at = models.DateTimeField(verbose_name='Доставка ко времени', null=True, blank=True)
     comment = models.TextField(verbose_name='Комментарий', blank=True)
-    gift_food_item = models.ForeignKey(FoodItem, verbose_name='Подарок', null=True, blank=True)
+    gift_food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE, verbose_name='Подарок', null=True, blank=True)
     order_created_timestamp = models.DateTimeField('Заказ создан', auto_now_add=True)
 
     def __str__(self):
@@ -139,7 +139,7 @@ class Gift(models.Model):
         verbose_name = 'Подарок'
         verbose_name_plural = 'Подарки'
         ordering = ('requirement', )
-    food_item = models.ForeignKey(FoodItem, verbose_name='Блюдо')
+    food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE, verbose_name='Блюдо')
     requirement = models.PositiveIntegerField('Требование')
 
     def __str__(self):

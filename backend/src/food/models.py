@@ -16,7 +16,7 @@ class Discount(models.Model):
 
     amount = models.DecimalField('Значение', max_digits=7, decimal_places=2,
                                  help_text='Значение <=1 — проценты, значение >1 — абсолютное значение')
-    content_type = models.ForeignKey(ContentType, limit_choices_to=_content_type_limit, verbose_name='Применяется к')
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to=_content_type_limit, verbose_name='Применяется к')
     object_id = models.PositiveIntegerField('Идентификатор')
     content_object = GenericForeignKey()
 
@@ -82,7 +82,7 @@ class FoodItem(SortableMixin):
     photo = models.ImageField('Фотография', upload_to='food_items/')
     description = models.TextField('Описание')
     raw_price = models.IntegerField('Первоначальная цена')
-    category = SortableForeignKey(FoodCategory, verbose_name='Категории')
+    category = SortableForeignKey(FoodCategory, on_delete=models.CASCADE, verbose_name='Категории')
     tags = models.ManyToManyField(FoodTag, blank=True, related_name='fooditems', verbose_name='Теги')
     discount = GenericRelation(Discount)
     amount = models.CharField('Количество', max_length=20, blank=True)

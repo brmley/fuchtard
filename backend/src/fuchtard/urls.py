@@ -23,7 +23,7 @@ from rest_framework.authtoken import views
 
 urlpatterns = [
     url(r'^suramar/', admin.site.urls),
-    url(r'^api/', include('api.urls', namespace='api')),
+    url(r'^api/', include('api.urls')),
 ]
 
 
