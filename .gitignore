@@ -10,3 +10,4 @@ local_settings.py
 .expo/
 npm-debug.*
 *.bak
+/venv/
