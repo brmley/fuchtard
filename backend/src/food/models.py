@@ -90,7 +90,6 @@ class FoodItem(SortableMixin):
     tags = models.ManyToManyField(FoodTag, blank=True, related_name='fooditems', verbose_name='Теги')
     discount = GenericRelation(Discount)
     amount = models.CharField('Количество', max_length=20, blank=True)
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

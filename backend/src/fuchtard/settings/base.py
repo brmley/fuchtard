@@ -148,7 +148,7 @@ SPARKPOST_API_KEY = env('SPARKPOST_API_KEY', default='fc52712a253df3d28d69fdb10f
 FUCHTARD_ORDERS_EMAIL = 'order@maxisushi.kz'
 FUCHTARD_NOREPLY_EMAIL = 'Maxi Sushi <noreply@maxisushi.kz>'
 
-SITE_DOMAIN = 'maxisushi.kz'
+SITE_DOMAIN = 'maxisushi.kz' #TODO: check it
 # Django REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
