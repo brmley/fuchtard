@@ -11,7 +11,7 @@ from hashid_field import HashidAutoField
 
 from food.models import FoodItem
 from .helpers import shifthash, send_templated_email, telegram_notify_channel, CartMeta
-
+from django.contrib.sites.models import Site
 
 class Cart(models.Model):
     class Meta:
@@ -87,6 +87,7 @@ class Order(models.Model):
     comment = models.TextField(verbose_name='Комментарий', blank=True)
     gift_food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE, verbose_name='Подарок', null=True, blank=True)
     order_created_timestamp = models.DateTimeField('Заказ создан', auto_now_add=True)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return '[{order.hashed_id}] {order.name}, {order.phone}'.format(order=self)
@@ -133,7 +134,6 @@ class OrderDetails(Order):
         verbose_name = 'Детали заказа'
         verbose_name_plural = 'Детали заказов'
 
-
 class Gift(models.Model):
     class Meta:
         verbose_name = 'Подарок'
@@ -141,6 +141,7 @@ class Gift(models.Model):
         ordering = ('requirement', )
     food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE, verbose_name='Блюдо')
     requirement = models.PositiveIntegerField('Требование')
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.food_item.title

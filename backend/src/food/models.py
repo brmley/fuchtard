@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.db import models
 from adminsortable.models import SortableMixin
 from adminsortable.fields import SortableForeignKey
@@ -19,6 +20,7 @@ class Discount(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to=_content_type_limit, verbose_name='Применяется к')
     object_id = models.PositiveIntegerField('Идентификатор')
     content_object = GenericForeignKey()
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{:.0f}%'.format(self.amount * 100) if self.amount <= 1 else '{:.0f} ₸'.format(self.amount)
@@ -36,6 +38,7 @@ class FoodTag(models.Model):
     title = models.CharField('Название', max_length=60)
     slug = models.SlugField()
     discount = GenericRelation(Discount, related_query_name='food_tags')
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -63,6 +66,7 @@ class FoodCategory(SortableMixin):
     position = models.PositiveIntegerField('Позиция', default=0, editable=False, db_index=True)
     title = models.CharField('Название', max_length=60)
     discount = GenericRelation(Discount, related_query_name='food_categories')
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -86,6 +90,7 @@ class FoodItem(SortableMixin):
     tags = models.ManyToManyField(FoodTag, blank=True, related_name='fooditems', verbose_name='Теги')
     discount = GenericRelation(Discount)
     amount = models.CharField('Количество', max_length=20, blank=True)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
